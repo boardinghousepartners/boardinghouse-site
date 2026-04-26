@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.boardinghouse.co.nz/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Block admin/private paths if added later
+Disallow: /admin/
+Disallow: /private/

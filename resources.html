@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources | BoardingHouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f0;
+      --red: #c0392b;
+      --gray: #1a1a1a;
+      --mid: #2e2e2e;
+      --muted: #888;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV (matches your existing site style) ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 72px;
+      background: var(--black);
+      border-bottom: 1px solid #1e1e1e;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .nav-logo-bar {
+      width: 4px;
+      height: 28px;
+      background: var(--red);
+    }
+
+    .nav-logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { opacity: 1; }
+    .nav-links a.active { border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2.5rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+      padding: 0 2.5rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--mid);
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: var(--white); color: var(--white); }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: var(--white); }
+
+    .search-input {
+      margin-left: auto;
+      background: var(--gray);
+      border: 1px solid var(--mid);
+      color: var(--white);
+      padding: 0.4rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      width: 220px;
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input::placeholder { color: var(--muted); }
+    .search-input:focus { border-color: var(--red); }
+
+    /* ── GRID ── */
+    .grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--gray);
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+      transition: filter 0.3s;
+    }
+
+    .card:hover .card-image { filter: brightness(1); }
+
+    .card-body {
+      padding: 1.5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.25s ease;
+    }
+
+    .card:hover { background: #222; }
+    .card:hover::before { transform: scaleY(1); }
+
+    .card-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .card-excerpt {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    .card-arrow {
+      font-size: 1rem;
+      color: var(--red);
+      transition: transform 0.2s;
+    }
+
+    .card:hover .card-arrow { transform: translateX(4px); }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 0;
+      color: var(--muted);
+    }
+
+    .empty h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--gray);
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-hero {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-content {
+      padding: 2.5rem 3rem 3rem;
+    }
+
+    @media (max-width: 640px) {
+      .modal-content { padding: 1.5rem; }
+      .modal-hero { height: 180px; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-close:hover { color: var(--white); }
+
+    .modal-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .modal h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-body {
+      color: #aaa;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .modal-body p { margin-bottom: 1rem; }
+
+    .modal-footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--mid);
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .hero, .filter-bar, .grid { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .search-input { width: 100%; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-bar"></div>
+      <span class="nav-logo-text">BoardingHouse</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/find-a-room">Find a Room</a></li>
+      <li><a href="/for-owners">For Owners</a></li>
+      <li><a href="/resources" class="active">Resources</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">Knowledge Base</p>
+    <h1>Resources &amp;<br>Guides</h1>
+    <p>Everything you need to know about boarding houses in New Zealand — for tenants and owners alike.</p>
+  </section>
+
+  <!-- FILTERS -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="tenant">Tenant Guides</button>
+    <button class="filter-btn" data-filter="owner">Owner Guides</button>
+    <button class="filter-btn" data-filter="legal">Legal</button>
+    <button class="filter-btn" data-filter="tips">Tips</button>
+    <input class="search-input" type="text" placeholder="Search articles…" id="searchInput" />
+  </div>
+
+  <!-- GRID -->
+  <div class="grid" id="articleGrid"></div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <img class="modal-hero" id="modalHero" src="" alt="" style="display:none;" />
+      <div class="modal-content">
+        <span class="modal-tag" id="modalTag"></span>
+        <h2 id="modalTitle"></h2>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer" id="modalFooter"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─────────────────────────────────────────────
+    // ARTICLES DATA — paste your exported content here,
+    // or load from /articles.json (see instructions below)
+    // ─────────────────────────────────────────────
+    const ARTICLES_SOURCE = '/articles.json'; // set to null to use inline array below
+
+    const INLINE_ARTICLES = [
+      {
+        id: 1,
+        title: "Tenant Rights in NZ Boarding Houses",
+        tag: "legal",
+        tagLabel: "Legal",
+        excerpt: "What the Residential Tenancies Act means for boarding house tenants — your rights, protections, and what landlords must provide.",
+        date: "2024-11-01",
+        body: "<p>Under the Residential Tenancies Act 1986, boarding house tenants have specific protections...</p><p>Replace this placeholder text with your actual article content.</p>"
+      },
+      {
+        id: 2,
+        title: "How to Find a Reputable Boarding House",
+        tag: "tenant",
+        tagLabel: "Tenant Guides",
+        excerpt: "Red flags to watch for, questions to ask before signing, and how to verify a property is compliant.",
+        date: "2024-10-15",
+        body: "<p>Finding the right boarding house takes more than a quick online search...</p><p>Replace this placeholder text with your actual article content.</p>"
+      },
+      {
+        id: 3,
+        title: "Setting Up Your Boarding House: Owner Checklist",
+        tag: "owner",
+        tagLabel: "Owner Guides",
+        excerpt: "A practical checklist covering compliance, insurance, room setup, and everything you need before your first tenant moves in.",
+        date: "2024-09-28",
+        body: "<p>Before you open your boarding house to tenants, there are several key steps to complete...</p><p>Replace this placeholder text with your actual article content.</p>"
+      },
+      {
+        id: 4,
+        title: "Managing Disputes Between Tenants",
+        tag: "tips",
+        tagLabel: "Tips",
+        excerpt: "Practical advice for owners on mediating conflict, setting house rules, and knowing when to escalate.",
+        date: "2024-09-10",
+        body: "<p>Shared living environments inevitably lead to friction. Here's how to handle it professionally...</p><p>Replace this placeholder text with your actual article content.</p>"
+      },
+      {
+        id: 5,
+        title: "Understanding Boarding House Bonds",
+        tag: "legal",
+        tagLabel: "Legal",
+        excerpt: "How bonds work differently in boarding houses, Tenancy Tribunal rules, and what tenants can claim back.",
+        date: "2024-08-22",
+        body: "<p>Bond rules for boarding houses differ from standard tenancies in important ways...</p><p>Replace this placeholder text with your actual article content.</p>"
+      },
+      {
+        id: 6,
+        title: "Minimum Standards for Boarding Houses",
+        tag: "owner",
+        tagLabel: "Owner Guides",
+        excerpt: "The legal minimums for heating, insulation, and sanitation — and why exceeding them protects your investment.",
+        date: "2024-08-05",
+        body: "<p>New Zealand law sets clear minimum standards for boarding house conditions...</p><p>Replace this placeholder text with your actual article content.</p>"
+      }
+    ];
+
+    // ─────────────────────────────────────────────
+    // APP LOGIC
+    // ─────────────────────────────────────────────
+    let articles = [];
+    let activeFilter = 'all';
+
+    async function loadArticles() {
+      if (ARTICLES_SOURCE) {
+        try {
+          const res = await fetch(ARTICLES_SOURCE);
+          if (res.ok) { articles = await res.json(); render(); return; }
+        } catch(e) { /* fall through to inline */ }
+      }
+      articles = INLINE_ARTICLES;
+      render();
+    }
+
+    function render() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = articles.filter(a => {
+        const matchFilter = activeFilter === 'all' || a.tag === activeFilter;
+        const matchSearch = !query || a.title.toLowerCase().includes(query) || a.excerpt.toLowerCase().includes(query);
+        return matchFilter && matchSearch;
+      });
+
+      const grid = document.getElementById('articleGrid');
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="empty"><h3>No Articles Found</h3><p>Try a different filter or search term.</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(a => `
+        <div class="card" data-id="${a.id}" role="button" tabindex="0">
+          ${a.image ? `<img class="card-image" src="${a.image}" alt="${a.title}" loading="lazy" />` : ''}
+          <div class="card-body">
+            <span class="card-tag">${a.tagLabel}</span>
+            <div class="card-title">${a.title}</div>
+            <div class="card-excerpt">${a.excerpt}</div>
+            <div class="card-meta">
+              <span>${formatDate(a.date)}</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      grid.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => openModal(card.dataset.id));
+        card.addEventListener('keydown', e => { if (e.key === 'Enter') openModal(card.dataset.id); });
+      });
+    }
+
+    function openModal(id) {
+      const a = articles.find(x => x.id == id);
+      if (!a) return;
+      document.getElementById('modalTag').textContent = a.tagLabel;
+      document.getElementById('modalTitle').textContent = a.title;
+      document.getElementById('modalBody').innerHTML = a.body;
+      document.getElementById('modalFooter').textContent = `Published ${formatDate(a.date)} · ${a.readTime || ''}`;
+      const hero = document.getElementById('modalHero');
+      if (a.image) {
+        hero.src = a.image;
+        hero.alt = a.title;
+        hero.style.display = 'block';
+      } else {
+        hero.style.display = 'none';
+      }
+      const overlay = document.getElementById('modal');
+      overlay.classList.add('open');
+      overlay.querySelector('.modal').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function formatDate(str) {
+      if (!str) return '';
+      return new Date(str).toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // Events
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        render();
+      });
+    });
+    document.getElementById('searchInput').addEventListener('input', render);
+
+    loadArticles();
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# netlify.toml
+# Add this to your existing file, or create it in your repo root
+
+[[redirects]]
+  from = "/resources"
+  to = "/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources/"
+  to = "/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources"
+  to = "/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources/"
+  to = "/resources.html"
+  status = 200
